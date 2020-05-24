@@ -1,0 +1,54 @@
+#include<string.h>
+int minReversal(char* input)
+{
+   int minEdit = 0,n;
+    char stack[n];
+    int Pos = -1;
+    int Count1 = 0;
+    int Count2 = 0;
+    int i;
+    n = strlen(input);
+    if(n%2!=0)
+    {
+        return -1;
+    }   
+    for (i=0; i<n; i++) {
+        if (input[i] == ']') {
+            if (Pos == -1) {
+                stack[++Pos] = ']';
+                Count2++;
+            } else if (stack[Pos] == '[') {
+                Pos--;
+                Count1--;
+            } else {
+                stack[++Pos] = ']';
+                Count2++;
+            }
+        } else {
+            stack[++Pos] = '[';
+            Count1++;
+        }
+    }
+   
+    stack[++Pos] = '\0';
+   
+    int B1 = Count1/2 + Count1%2;
+    int B2 = Count2/2 + Count2%2;
+    minEdit = B2 + B1;
+    return minEdit;
+   }
+   
+   int main()
+{
+  int t, ans;
+  scanf("%d",&t);
+  while(t--)
+  {
+    char expr[100];
+    scanf("%s",expr);
+    ans = minReversal(expr);
+    printf("%d\n",ans);
+  }
+  return 0;
+}
+   
